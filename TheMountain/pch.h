@@ -12,7 +12,7 @@
 // TODO: add headers that you want to pre-compile here
 #include <iostream>
 
-//#include "Vector.h"
+#include "Vector.h"
 #include "Vertex.h"
 #include "Face.h"
 

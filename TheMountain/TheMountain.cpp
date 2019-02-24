@@ -11,9 +11,9 @@ int main()
 {
     std::cout << "Build a mountain!" << std::endl; 
 
-	Vertex a = Vertex(0, 0, 4);
-	Vertex b = Vertex(1, 3, 2);
-	Vertex c = Vertex(2, 4, 6);
+	Vertex a = Vertex(0, 0, 0);
+	Vertex b = Vertex(0, 4, 0);
+	Vertex c = Vertex(4, 4, 4);
 
 	Face f = Face(a, b, c);
 
@@ -21,6 +21,13 @@ int main()
 
 	Vertex center = f.GetCenter();
 	std::cout << "Center of f: " << center << std::endl;
+
+	Vector ab = a - b;
+	Vector ac = a - c;
+
+	Vector cross = ab.CrossProduct(ac);
+
+	std::cout << ab << " cross " << ac << " is " << cross << std::endl;
 
 	string input;
 	getline(std::cin, input);

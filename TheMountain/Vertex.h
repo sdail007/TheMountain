@@ -7,9 +7,9 @@ private:
 public:
 	Vertex()=default;
 	Vertex(float, float, float);
-	float GetX();
-	float GetY();
-	float GetZ();
+	float GetX() const;
+	float GetY() const;
+	float GetZ() const;
 	friend std::ostream& operator<<(std::ostream& out, Vertex& obj);
-	//friend Vector operator-(const Vertex&, const Vertex&);
+	friend Vector operator-(const Vertex&, const Vertex&);
 };

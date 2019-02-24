@@ -7,17 +7,17 @@ Vertex::Vertex(float x, float y, float z)
 	Vertex::z = z;
 }
 
-float Vertex::GetX() 
+float Vertex::GetX() const
 {
 	return x;
 }
 
-float Vertex::GetY()
+float Vertex::GetY() const
 {
 	return y;
 }
 
-float Vertex::GetZ()
+float Vertex::GetZ() const
 {
 	return z;
 }
@@ -28,7 +28,7 @@ std::ostream& operator<<(std::ostream& out, Vertex& obj)
 	return out;
 }
 
-//Vector operator-(const Vertex& a, const Vertex& b)
-//{
-//	return Vector(b.x - a.x, b.y - a.y, b.z - a.z);
-//}
+Vector operator-(const Vertex& a, const Vertex& b)
+{
+	return Vector(b.x - a.x, b.y - a.y, b.z - a.z);
+}

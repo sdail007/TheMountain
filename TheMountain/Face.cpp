@@ -2,13 +2,6 @@
 
 #include <math.h>
 
-/*Face::Face(Vertex a, Vertex b, Vertex c)
-{
-	Face::a = a;
-	Face::b = b;
-	Face::c = c;
-}*/
-
 Face::Face(const Vertex& a, const Vertex& b, const Vertex& c)
 {
 	Face::a = a;
@@ -45,7 +38,10 @@ Vertex Face::GetCenter()
 float Face::Grade()
 {
 	//Cross Product
+	Vector ab = vertices[0] - vertices[1];
+	Vector ac = vertices[0] - vertices[2];
 	
+	Vector cross = ab.CrossProduct(ac);
 
 	//a,b,c
 	// dot product of a*b
