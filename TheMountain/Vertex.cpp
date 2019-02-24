@@ -1,23 +1,23 @@
 #include "pch.h"
 
-Vertex::Vertex(int x, int y, int z)
+Vertex::Vertex(float x, float y, float z)
 {
 	Vertex::x = x;
 	Vertex::y = y;
 	Vertex::z = z;
 }
 
-int Vertex::GetX() 
+float Vertex::GetX() 
 {
 	return x;
 }
 
-int Vertex::GetY()
+float Vertex::GetY()
 {
 	return y;
 }
 
-int Vertex::GetZ()
+float Vertex::GetZ()
 {
 	return z;
 }
@@ -27,3 +27,8 @@ std::ostream& operator<<(std::ostream& out, Vertex& obj)
 	out << obj.x << "," << obj.y << "," << obj.z;
 	return out;
 }
+
+//Vector operator-(const Vertex& a, const Vertex& b)
+//{
+//	return Vector(b.x - a.x, b.y - a.y, b.z - a.z);
+//}
