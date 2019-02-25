@@ -3,43 +3,127 @@
 
 #include "pch.h"
 #include <iostream>
+#include <fstream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
+void SubdivideFaces(Face& face, vector<Face>& added, vector<Face>& removed);
+
 int main()
 {
-    std::cout << "Build a mountain!" << std::endl; 
+	cout << "Build a mountain!" << endl;
 
 	Vertex a = Vertex(0, 0, 0);
-	Vertex b = Vertex(0, 4, 0);
-	Vertex c = Vertex(4, 4, 4);
+	Vertex b = Vertex(0, 100, 0);
+	Vertex c = Vertex(100, 0, 0);
+	Vertex d = Vertex(100, 100, 0);
 
-	Face f = Face(a, b, c);
+	Vertex peak = Vertex(50, 50, 50);
 
-	std::cout << f << std::endl;
+	Face north = Face(b, d, peak);
+	Face east = Face(a, b, peak);
+	Face south = Face(a, c, peak);
+	Face west = Face(c, d, peak);
 
-	Vertex center = f.GetCenter();
-	std::cout << "Center of f: " << center << std::endl;
+	Vertex centerNorth = north.GetCenter();
+	Vertex centerEast = east.GetCenter();
+	Vertex centerSouth = south.GetCenter();
+	Vertex centerWest = west.GetCenter();
 
-	Vector ab = a - b;
-	Vector ac = a - c;
+	cout << "Center of North is " << centerNorth << endl;
+	cout << "Center of South is " << centerSouth << endl;
+	cout << "Center of East is " << centerEast << endl;
+	cout << "Center of West is " << centerWest << endl;
 
-	Vector cross = ab.CrossProduct(ac);
+	float nGrade = north.Grade();
+	float sGrade = south.Grade();
+	float eGrade = east.Grade();
+	float wGrade = west.Grade();
 
-	std::cout << ab << " cross " << ac << " is " << cross << std::endl;
+	cout << "North has a grade of " << nGrade << endl;
+	cout << "South has a grade of " << sGrade << endl;
+	cout << "East has a grade of " << eGrade << endl;
+	cout << "West has a grade of " << wGrade << endl;
+
+	float nArea = north.FindArea();
+	float sArea = south.FindArea();
+	float eArea = east.FindArea();
+	float wArea = west.FindArea();
+
+	cout << "North has an area of " << nArea << endl;
+	cout << "South has an area of " << sArea << endl;
+	cout << "East has an area of " << eArea << endl;
+	cout << "West has an area of " << wArea << endl;
+
+	//Subdivide each face of the mountain.
+	vector<Face> mountainFaces = vector<Face>();
+	mountainFaces.push_back(north);
+	mountainFaces.push_back(east);
+	mountainFaces.push_back(south);
+	mountainFaces.push_back(west);
+
+	vector<Face> added = vector<Face>();
+	vector<Face> removed = vector<Face>();
+
+	for (std::vector<Face>::iterator i = mountainFaces.begin(); i != mountainFaces.end(); i++)
+	{
+		Face f = *i;
+		SubdivideFaces(f, added, removed);
+	}
+
+	cout << added.size() << " faces added" << endl;
+
+	ofstream file;
+	file.open("butts.txt");
+
+	for (std::vector<Face>::iterator i = mountainFaces.begin(); i != mountainFaces.end(); i++)
+	{
+		Face f = *i;
+		file << f << endl;
+	}
+
+	for (std::vector<Face>::iterator i = added.begin(); i != added.end(); i++)
+	{	
+		Face f = *i;
+		file << f << endl;
+	}
+
+	file.close();
 
 	string input;
-	getline(std::cin, input);
+	getline(cin, input);
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+//Get a face <-- lol
+//	subdivide the face
+//	get 3 faces
+//		foreach face
+//			check area of face
+//			if area within threshold
+//				call this method
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+void SubdivideFaces(Face& face, vector<Face>& added, vector<Face>& removed)
+{
+	cout << "subdividing a face ClappyHype " << endl;
+	Face* subdivisions = face.Subdivide();
+
+	removed.push_back(face);
+
+	for(int i = 0; i <= 2; i++)
+	{
+		Face subdivision = subdivisions[i];
+		
+		added.push_back(subdivision);
+		cout << added.size() << " faces added so far" << endl;
+
+		float area = subdivision.FindArea();
+		std::cout << "Subdivision " << i << " has an area of " << area << std::endl;
+
+		if(area > 250.0f)
+		{
+			SubdivideFaces(subdivision, added, removed);
+		}
+	}
+}

@@ -11,10 +11,12 @@ private:
 
 	//TODO: Save neighbor faces
 public:
-	//Face(Vertex, Vertex, Vertex);
+	Face() = default;
 	Face(const Vertex&, const Vertex&, const Vertex&);
-	Vertex GetCenter();
-	float Grade();
+	Vertex GetCenter() const;
+	float Grade() const;
+	float FindArea() const;
+	Face* Subdivide() const;
 
 	friend std::ostream& operator<<(std::ostream&, Face);
 

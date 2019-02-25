@@ -30,5 +30,5 @@ std::ostream& operator<<(std::ostream& out, Vertex& obj)
 
 Vector operator-(const Vertex& a, const Vertex& b)
 {
-	return Vector(b.x - a.x, b.y - a.y, b.z - a.z);
+	return Vector(a.x - b.x, a.y - b.y, a.z - b.z);
 }
